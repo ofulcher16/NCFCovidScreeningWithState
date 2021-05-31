@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "artifactType": {
+    "type": "COMPATIBLE_SCREEN_MANIFEST",
+    "kind": "Directory"
+  },
+  "applicationId": "edu.ncf.dgillman.ncf_covid_screening",
+  "variantName": "debug",
+  "elements": []
+}

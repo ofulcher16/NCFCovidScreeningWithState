@@ -14,29 +14,43 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController _idController;
+  final idController = TextEditingController();
   LoginBloc _bloc;
   bool _idNumberHasBeenUpdated = false;
   String previousIDNumber;
+  String idNumber;
 
   @override
   void didChangeDependencies() async {
-    _bloc = AppStateContainer.of(context)?.blocProvider?.loginBloc;
+    _bloc = AppStateContainer.of(context).blocProvider.loginBloc;
     var id = await _bloc.idNumber.first.then((i) => i);
-    _idController = TextEditingController(text: id);
-
-    previousIDNumber = _idController.text;
-
-    _idController.addListener(onChangeID);
+    previousIDNumber = idController.text;
+    print(previousIDNumber);
 
     super.didChangeDependencies();
   }
 
   void onChangeID() {
-    if (previousIDNumber == _idController.text) return;
+    if (previousIDNumber == idController.text) return;
     setState(() {
       _idNumberHasBeenUpdated = true;
+      idNumber = idController.text;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Start listening to changes.
+    idController.addListener(onChangeID);
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is removed from the widget tree.
+    // This also removes the _printLatestValue listener.
+    idController.dispose();
+    super.dispose();
   }
 
   @override
@@ -63,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       textScaleFactor: 1.5,
                     ),
                     _controlledTextField(
-                        label: "Net ID", controller: _idController),
+                        label: "Net ID", controller: idController),
                     _makeTextField(label: "Password", obscure: true),
                     MaterialButton(
                         child: Text(
@@ -112,6 +126,8 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _openHomePage({BuildContext context, bool fullScreen}) {
+    _bloc.updateIDNumberSink.add(idNumber);
+    print(idNumber);
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(

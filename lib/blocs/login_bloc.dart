@@ -15,18 +15,20 @@ class LoginBloc {
   // Inputs
   StreamController<String> updateIDNumberSink = StreamController<String>();
 
+
+
   // Outputs
   Stream<String> get idNumber => _idNumberStreamController.stream;
   StreamController _idNumberStreamController = BehaviorSubject<String>();
 
   LoginBloc(this._service) {
+    Stream stream = updateIDNumberSink.stream;
     // Listen to inputs
-    updateIDNumberSink.stream.listen((_handleUpdateIDNumber));
-
-    // listen for incoming outputs
-    _service.streamIDNumber().listen((String idNumber) {
-      _idNumberStreamController.add(idNumber);
+    stream.listen((value) {
+      print('Value from controller: $value');
+      _idNumberStreamController.add(value);
     });
+    // listen for incoming outputs
   }
 
   void _handleUpdateIDNumber(String idNumber) {

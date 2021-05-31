@@ -22,11 +22,19 @@ class _ContactInfoWidgetState extends State<ContactInfoWidget> {
   StreamController _streamController;
 
   @override
-  void didChangeDependencies() async {
+  void initState() {
+    super.initState();
+  }
+
+  void asyncFetchAndSyncData() async {
     _bloc = AppStateContainer.of(context)?.blocProvider?.loginBloc;
-    var id = await _bloc.idNumber.first.then((i) => i);
-    print(id);
-    _streamController = ;
+    _id = await _bloc.idNumber.first.then((i) => i);
+    print(_id);
+  }
+
+  @override
+  void didChangeDependencies() async {
+    asyncFetchAndSyncData();
     super.didChangeDependencies();
   }
 
@@ -49,7 +57,7 @@ class _ContactInfoWidgetState extends State<ContactInfoWidget> {
             style: TextStyle(color: Colors.orange, fontSize: 20.0),
           ),
           Padding(padding: EdgeInsets.all(15.0)),
-          Text( ""),
+          Text( _id != null ? _id : ''),
           Padding(padding: EdgeInsets.all(15.0)),
           ColoredTextField(label: "First Name", color: Colors.blue),
           Padding(padding: EdgeInsets.all(15.0)),

@@ -14,7 +14,7 @@ class Entry{
   StreamController<Questions> questionNotifier = StreamController<Questions>.broadcast();
 
   Entry(){
-    _login = Login(idNumber: "N10254242");
+    _login = Login(idNumber: "INIT");
     _contactInfo = ContactInfo(firstName: "Olympia", lastName: "Fulcher", phoneNumber: "123-456-7890", email: "olympia.fulcher16@ncf.edu", isCompleted: true);
     _questions = Questions(contact: false, symptoms: false, isCompleted: true);
 

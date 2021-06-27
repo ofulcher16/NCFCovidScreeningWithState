@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:ncf_covid_screening/utils/page_type.dart';
@@ -5,6 +7,8 @@ import 'package:ncf_covid_screening/widgets/contact_info_body.dart';
 import 'package:ncf_covid_screening/widgets/questions_body.dart';
 import 'package:ncf_covid_screening/widgets/confirmation_body.dart';
 import 'package:ncf_covid_screening/widgets/progress_stepper_wrapper.dart';
+import 'package:ncf_covid_screening/blocs/contactInfo_bloc.dart';
+import 'package:ncf_covid_screening/blocs/app_state.dart';
 
 class PageContainer extends StatefulWidget {
   PageContainer({
@@ -25,7 +29,8 @@ class PageContainer extends StatefulWidget {
 }
 
 class _PageContainerState extends State<PageContainer> {
-
+  ContactInfoBloc _contactInfoBloc;
+  bool _firstStepCompleted = false;
   // for spinning the four winds
   final controller = ScrollController(initialScrollOffset: 10);
   double angle = 0;
@@ -53,6 +58,17 @@ class _PageContainerState extends State<PageContainer> {
       default:
         return "";
     }
+  }
+
+  void asyncFetchAndSyncData() async{
+    _contactInfoBloc = AppStateContainer.of(context)?.blocProvider?.contactInfoBloc;
+    _firstStepCompleted = await _contactInfoBloc.isCompleted.first.then((i) => i);
+  }
+
+  @override
+  void didChangeDependencies() async {
+    asyncFetchAndSyncData();
+    super.didChangeDependencies();
   }
 
   @override
@@ -127,7 +143,7 @@ class _PageContainerState extends State<PageContainer> {
           style: TextStyle(color: Colors.orange, fontSize: 20.0),
         ),
         ProgressStepperWrapper(
-          firstStepCompleted: widget.firstStepCompleted,
+          firstStepCompleted: _firstStepCompleted,
           secondStepCompleted: widget.secondStepCompleted,
         ),
         pageBody,

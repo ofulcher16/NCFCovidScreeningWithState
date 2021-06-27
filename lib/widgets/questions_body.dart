@@ -39,7 +39,6 @@ class QuestionsBody extends StatelessWidget {
           fullscreenDialog: fullScreen,
           builder: (context) => PageContainer(
             pageType: PageType.Confirmation,
-            firstStepCompleted: true,
             secondStepCompleted: true,
           ),
         )

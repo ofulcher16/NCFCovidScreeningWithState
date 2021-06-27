@@ -33,7 +33,6 @@ class ContactInfoBody extends StatelessWidget {
           fullscreenDialog: fullScreen,
           builder: (context) => PageContainer(
             pageType: PageType.Questions,
-            firstStepCompleted: true,
             secondStepCompleted: false,
           ),
         )

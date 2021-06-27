@@ -75,5 +75,4 @@ class ContactInfoServiceTemp implements ContactInfoService {
   Stream<bool> streamIsCompleted() {
     return entry.contactInfoNotifier.stream.map((event) => event.isCompleted);
   }
-
 }

@@ -3,8 +3,10 @@
  * Use of this source code is governed by the MIT license that can be found in the LICENSE file.
  */
 
+import 'package:ncf_covid_screening/blocs/contactInfo_bloc.dart';
 import 'package:ncf_covid_screening/blocs/login_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:ncf_covid_screening/services/contactinfoservice.dart';
 import 'package:ncf_covid_screening/services/login_service.dart';
 
 class AppStateContainer extends StatefulWidget {
@@ -40,10 +42,35 @@ class AppState extends State<AppStateContainer> {
     super.dispose();
   }
 
-  // 'LIFTING STATE UP' REGION:
+
   String IDNumber = "";
   void updateIDNumber(String idNumber) {
     setState(() => IDNumber = idNumber);
+  }
+
+  String FirstName = "";
+  void updateFirstName(String firstName) {
+    setState(() => FirstName = firstName);
+  }
+
+  String LastName = "";
+  void updateLastName(String lastName) {
+    setState(() => LastName = lastName);
+  }
+
+  String PhoneNumber = "";
+  void updatePhoneNumber(String phoneNumber) {
+    setState(() => PhoneNumber = phoneNumber);
+  }
+
+  String Email = "";
+  void updateEmail(String email) {
+    setState(() => Email = email);
+  }
+
+  bool IsCompleted = false;
+  void updateIsCompleted(bool isCompleted) {
+    setState(() => IsCompleted = isCompleted);
   }
 }
 
@@ -64,16 +91,20 @@ class _AppStoreContainer extends InheritedWidget {
 
 class ServiceProvider {
   final LoginService loginService;
+  final ContactInfoService contactInfoService;
 
   ServiceProvider({
     @required this.loginService,
+    @required this.contactInfoService
   });
 }
 
 class BlocProvider {
   LoginBloc loginBloc;
+  ContactInfoBloc contactInfoBloc;
 
   BlocProvider({
     @required this.loginBloc,
+    @required this.contactInfoBloc
   });
 }

@@ -1,4 +1,0 @@
-io/flutter/plugins/GeneratedPluginRegistrant.java
- io.flutter.plugins.GeneratedPluginRegistrant
-edu/ncf/dgillman/ncf_covid_screening/BuildConfig.java
- edu.ncf.dgillman.ncf_covid_screening.BuildConfig

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:ncf_covid_screening/blocs/login_bloc.dart';
 import 'package:ncf_covid_screening/screens/page_container.dart';
@@ -23,10 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void didChangeDependencies() async {
     _bloc = AppStateContainer.of(context).blocProvider.loginBloc;
-    var id = await _bloc.idNumber.first.then((i) => i);
     previousIDNumber = idController.text;
-    print(previousIDNumber);
-
     super.didChangeDependencies();
   }
 
@@ -127,14 +126,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _openHomePage({BuildContext context, bool fullScreen}) {
     _bloc.updateIDNumberSink.add(idNumber);
-    print(idNumber);
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           fullscreenDialog: fullScreen,
           builder: (context) => PageContainer(
             pageType: PageType.ContactInfo,
-            firstStepCompleted: false,
             secondStepCompleted: false,
           ),
         ));

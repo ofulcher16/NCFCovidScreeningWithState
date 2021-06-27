@@ -15,7 +15,7 @@ class Entry{
 
   Entry(){
     _login = Login(idNumber: "INIT");
-    _contactInfo = ContactInfo(firstName: "Olympia", lastName: "Fulcher", phoneNumber: "123-456-7890", email: "olympia.fulcher16@ncf.edu", isCompleted: true);
+    _contactInfo = ContactInfo(firstName: "INIT", lastName: "INIT", phoneNumber: "INIT", email: "INIT", isCompleted: true);
     _questions = Questions(contact: false, symptoms: false, isCompleted: true);
 
     Future.delayed(Duration(milliseconds: 500), () {

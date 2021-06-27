@@ -25,7 +25,7 @@ class LoginBloc {
     Stream stream = updateIDNumberSink.stream;
     // Listen to inputs
     stream.listen((value) {
-      print('Value from controller: $value');
+      //print('Value from controller: $value');
       _idNumberStreamController.add(value);
     });
     // listen for incoming outputs

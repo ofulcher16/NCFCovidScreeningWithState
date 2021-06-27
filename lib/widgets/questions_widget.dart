@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ncf_covid_screening/blocs/question_bloc.dart';
 
 class QuestionsWidget extends StatefulWidget {
   QuestionsWidget({Key key, this.title}) : super(key: key);
@@ -6,16 +7,25 @@ class QuestionsWidget extends StatefulWidget {
   final String title;
 
   @override
-  _QuestionsWidgetState createState() => _QuestionsWidgetState();
+  _QuestionsWidgetState createState() =>
+      new _QuestionsWidgetState();
 }
 
 class _QuestionsWidgetState extends State<QuestionsWidget> {
+  bool _contact;
+  bool _symptoms;
+  bool _isCompleted;
+
+  QuestionBloc _questionBloc;
+
   final List<String> questions = [
     "Have you come in contact with someone " +
         "who tested positive for COVID-19 in the last 72 hours?",
     "Are you experiencing any of the following COVID-19 symptoms today? " +
         "(See list below.)",
   ];
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +102,9 @@ class ColoredQuestionField extends StatelessWidget {
               new Radio(
                 value: 0,
                 groupValue: _defaultRadioValue,
-                onChanged: (int val) {},
+                onChanged: (int val) {
+                      //() => changeContactButton(val);
+                },
               ),
               new Text(
                 'No',
